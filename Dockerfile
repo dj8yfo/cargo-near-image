@@ -7,6 +7,8 @@ RUN apt-get update \
        curl \
        build-essential \
        ca-certificates \
+       pkg-config \
+       libudev-dev \
     && rm -rf /var/lib/apt/lists/* \
     && groupadd -g 1000 builder \
     && useradd -m -d /home/builder -s /bin/bash -g builder -u 1000 builder
@@ -31,5 +33,12 @@ ENV PATH="$CARGO_HOME/bin:$PATH"
 
 # Continuation of the Rust setup: adding the wasm target for WebAssembly development and installing cargo-near for NEAR protocol development, followed by setting appropriate permissions for the builder's home directory
 RUN rustup target add wasm32-unknown-unknown \
-    && curl --proto '=https' --tlsv1.2 -LsSf https://github.com/near/cargo-near/releases/download/cargo-near-v0.6.0/cargo-near-installer.sh | sh \
     && chmod -R a+rwx $HOME
+
+ADD --chown=builder:builder cargo-near /cargo-near
+
+RUN cd /cargo-near/cargo-near && cargo install --path . --locked && rm -rf /cargo-near/target
+
+# /home/builder/.cargo/registry/cache was created during bulding `cargo-near`
+# this may be inaccessible for users other than builder
+RUN chmod -R a+rwx $CARGO_HOME
