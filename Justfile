@@ -1,7 +1,7 @@
 temporary_image_id := "0.x.x-dev-cargo-near"
 temporary_image_id_latest := temporary_image_id + ":latest"
 remote_image_repo := "dj8yfo/sourcescan"
-remote_image_id := remote_image_repo + ":0.x.x-dev-cargo-near"
+remote_image_id := remote_image_repo + ":0.x.x-dev-cargo-near-build-cmd-repo"
 
 # cleanup in symlinked dir
 cleanup:
