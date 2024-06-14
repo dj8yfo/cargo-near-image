@@ -6,7 +6,7 @@ remote_image_id := remote_image_repo + ":0.x.x-dev-cargo-near-finalization"
 # cleanup in symlinked dir
 cleanup:
     rm -rf cargo-near
-    cp -rHv cargo-near1 cargo-near
+    cp -rH cargo-near1 cargo-near
     pushd cargo-near && cargo clean && popd
 
 # build dockerfile from symlinked `cargo-near`
