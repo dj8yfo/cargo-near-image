@@ -18,14 +18,14 @@ USER near
 
 # Set up the environment for the near user with Rust-specific configurations
 ENV HOME=/home/near \
-    RUSTUP_TOOLCHAIN=1.75 \
+    RUSTUP_TOOLCHAIN=1.79.0 \
     RUSTFLAGS='-C link-arg=-s' \
     CARGO_NEAR_NO_REPRODUCIBLE=true \
     CARGO_HOME=/home/near/.cargo \
     RUSTUP_HOME=/home/near/.rustup
 
 # Install Rust using rustup with a specific version, add the wasm target, install cargo-near, and set directory permissions
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain 1.75.0 -y \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain 1.79.0 -y \
     && chmod -R a+rwx $CARGO_HOME $RUSTUP_HOME
 
 # Ensure the Rust and Cargo binaries are in the PATH for easy command-line access
