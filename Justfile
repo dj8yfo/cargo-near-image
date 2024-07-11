@@ -1,7 +1,8 @@
 temporary_image_id := "0.x.x-dev-cargo-near"
 temporary_image_id_latest := temporary_image_id + ":latest"
 remote_image_repo := "dj8yfo/sourcescan"
-remote_image_id := remote_image_repo + ":0.x.x-dev-cargon-f-unlocked"
+remote_image_tag := "0.x.x-dev-cargon-f-unlocked"
+remote_image_id := remote_image_repo + ":" + remote_image_tag 
 
 # cleanup in symlinked dir
 cleanup:
@@ -18,4 +19,4 @@ push_image_to_remote:
     docker push {{remote_image_id}}
 
 print_latest_image:
-    docker image ls --digests  | grep {{remote_image_repo}} | grep {{temporary_image_id}} | head -n 1 | awk '{print $3}'
+    docker image ls --digests  | grep {{remote_image_repo}}  | grep {{remote_image_tag}} | head -n 1 | awk '{print $3}'
