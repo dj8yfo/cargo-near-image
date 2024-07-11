@@ -1,5 +1,5 @@
 # Start with Debian slim image as the base
-FROM amd64/debian:stable-slim as build-production
+FROM amd64/debian:stable-slim
 
 # Install system dependencies and create a non-root user 'near'
 RUN apt-get update \
@@ -17,15 +17,15 @@ RUN apt-get update \
 USER near
 
 # Set up the environment for the near user with Rust-specific configurations
-ARG RUST_VERSION=1.79.0
 ENV HOME=/home/near \
-    RUSTUP_TOOLCHAIN=$RUST_VERSION \
+    RUSTUP_TOOLCHAIN=1.79.0 \
     RUSTFLAGS='-C link-arg=-s' \
+    CARGO_NEAR_NO_REPRODUCIBLE=true \
     CARGO_HOME=/home/near/.cargo \
     RUSTUP_HOME=/home/near/.rustup
 
 # Install Rust using rustup with a specific version, add the wasm target, install cargo-near, and set directory permissions
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain $RUST_VERSION -y \
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --default-toolchain 1.79.0 -y \
     && chmod -R a+rwx $CARGO_HOME $RUSTUP_HOME
 
 # Ensure the Rust and Cargo binaries are in the PATH for easy command-line access
@@ -35,10 +35,7 @@ ENV PATH="$CARGO_HOME/bin:$PATH"
 RUN rustup target add wasm32-unknown-unknown \
     && chmod -R a+rwx $HOME
 
-ARG CARGO_NEAR_COMMIT=a04e05ea700cecdaba0d29f54db8820055a65d0d
-
-RUN git clone https://github.com/near/cargo-near.git /cargo-near \
-    && cd /cargo-near && git checkout $CARGO_NEAR_COMMIT 
+ADD --chown=near:near cargo-near /cargo-near
 
 RUN cd /cargo-near/cargo-near && cargo install --path . --locked && rm -rf /cargo-near/target
 

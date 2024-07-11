@@ -1,17 +1,12 @@
 temporary_image_id := "0.x.x-dev-cargo-near"
 temporary_image_id_latest := temporary_image_id + ":latest"
 remote_image_repo := "dj8yfo/sourcescan"
-remote_image_tag := "0.x.x-dev-cargon-f-unlocked"
+remote_image_tag := "0.x.x-dev-git-pull-134"
 remote_image_id := remote_image_repo + ":" + remote_image_tag 
 
 # cleanup in symlinked dir
-cleanup:
-    rm -rf cargo-near
-    cp -rH cargo-near1 cargo-near
-    pushd cargo-near && cargo clean && popd
-
 # build dockerfile from symlinked `cargo-near`
-build_image: cleanup
+build_image:
     docker build -t {{temporary_image_id}} .
 
 push_image_to_remote:
