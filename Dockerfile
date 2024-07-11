@@ -4,6 +4,7 @@ FROM amd64/debian:stable-slim as build-production
 # Install system dependencies and create a non-root user 'near'
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+       git \
        curl \
        build-essential \
        ca-certificates \
@@ -37,10 +38,10 @@ RUN rustup target add wasm32-unknown-unknown \
 
 ARG CARGO_NEAR_COMMIT=a04e05ea700cecdaba0d29f54db8820055a65d0d
 
-RUN git clone https://github.com/near/cargo-near.git /cargo-near \
-    && cd /cargo-near && git checkout $CARGO_NEAR_COMMIT 
+RUN git clone https://github.com/near/cargo-near.git /home/near/cargo-near \
+    && cd /home/near/cargo-near && git checkout $CARGO_NEAR_COMMIT 
 
-RUN cd /cargo-near/cargo-near && cargo install --path . --locked && rm -rf /cargo-near/target
+RUN cd /home/near/cargo-near/cargo-near && cargo install --path . --locked && rm -rf /cargo-near/target
 
 # /home/near/.cargo/registry/cache was created during bulding `cargo-near`
 # this may be inaccessible for users other than near
