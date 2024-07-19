@@ -32,8 +32,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profi
 ENV PATH="$CARGO_HOME/bin:$PATH"
 
 # Clone the cargo-near repository and install cargo-near
-# tip of pr https://github.com/near/cargo-near/pull/179/commits
-ARG CARGO_NEAR_COMMIT=34c92f323d165f732dfaf39fded89bd635c4d461
+# tip of artificially_increased_version branch
+ARG CARGO_NEAR_COMMIT=dd1235cefb2c915d35a57b6276466346666609f9
 
 # Add the wasm32-unknown-unknown target and install cargo-near
 RUN rustup target add wasm32-unknown-unknown && \
