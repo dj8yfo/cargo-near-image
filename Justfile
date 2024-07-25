@@ -1,7 +1,7 @@
 temporary_image_id := "0.x.x-dev-cargo-near"
 temporary_image_id_latest := temporary_image_id + ":latest"
 remote_image_repo := "dj8yfo/sourcescan"
-remote_image_tag := "0.x.x-dev-git-pull-179-ccache-cut-single"
+remote_image_tag := "0.x.x-dev-git-pull-134-ccache-cut-single"
 remote_image_id := remote_image_repo + ":" + remote_image_tag 
 
 # cleanup in symlinked dir
