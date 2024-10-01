@@ -7,7 +7,7 @@ remote_image_id := remote_image_repo + ":" + remote_image_tag
 # cleanup in symlinked dir
 # build dockerfile from symlinked `cargo-near`
 build_image:
-    schedtool -a 0x3FF docker build -t {{temporary_image_id}} .
+    docker build -t {{temporary_image_id}} .
 
 push_image_to_remote:
     docker tag {{temporary_image_id_latest}} {{remote_image_id}}
