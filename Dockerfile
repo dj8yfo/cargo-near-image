@@ -33,7 +33,7 @@ ENV PATH="$CARGO_HOME/bin:$PATH"
 
 # Clone the cargo-near repository and install cargo-near
 # tip of pr https://github.com/dj8yfo/cargo-near/pull/228
-ARG CARGO_NEAR_COMMIT=b982e74717869497dd2388e2eeb79568ec0d1c90
+ARG CARGO_NEAR_COMMIT=1f8e72ca47743846e374be6aaf81ab08a578c9dc
 
 # Add the wasm32-unknown-unknown target and install cargo-near
 RUN rustup target add wasm32-unknown-unknown && \
