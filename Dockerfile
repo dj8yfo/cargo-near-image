@@ -18,7 +18,7 @@ RUN apt-get update \
 USER near
 
 # Set up the environment for the near user with Rust-specific configurations
-ARG RUST_VERSION=1.82.0
+ARG RUST_VERSION=1.83.0
 ENV HOME=/home/near \
     RUSTUP_TOOLCHAIN=$RUST_VERSION \
     RUSTFLAGS='-C link-arg=-s' \
