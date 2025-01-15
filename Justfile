@@ -6,11 +6,11 @@ remote_image_id := remote_image_repo + ":" + remote_image_tag
 
 # build dockerfile git-specified commit of `cargo-near`
 build_image:
-    docker build -t {{temporary_image_id}} .
+    pu add -g cargo-near-docker-image docker build -t {{temporary_image_id}} .
 
 push_image_to_remote:
     docker tag {{temporary_image_id_latest}} {{remote_image_id}}
-    docker push {{remote_image_id}}
+    pu add -g cargo-near-docker-image docker push {{remote_image_id}}
 
 print_latest_image:
     docker image ls --digests  | grep {{remote_image_repo}}  | grep {{remote_image_tag}} | head -n 1 | awk '{print $3}'
