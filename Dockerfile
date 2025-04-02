@@ -18,7 +18,7 @@ RUN apt-get update \
 USER near
 
 # Set up the environment for the near user with Rust-specific configurations
-ARG RUST_VERSION=1.84.0
+ARG RUST_VERSION=1.85.1
 ENV HOME=/home/near \
     RUSTUP_TOOLCHAIN=$RUST_VERSION \
     RUSTFLAGS='-C link-arg=-s' \
@@ -32,8 +32,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profi
 ENV PATH="$CARGO_HOME/bin:$PATH"
 
 # Clone the cargo-near repository and install cargo-near
-# tip of pr https://github.com/dj8yfo/cargo-near/pull/289
-ARG CARGO_NEAR_COMMIT=f462957eaacb6e043fecf19c55ec72e2c07c1fbe
+# tip of pr https://github.com/near/cargo-near/pull/320
+ARG CARGO_NEAR_COMMIT=06fb125fd9a3199f8a770573cf609a2f78f742fe
 
 # Add the wasm32-unknown-unknown target and install cargo-near
 RUN rustup target add wasm32-unknown-unknown && \
